@@ -1,0 +1,1 @@
+<div style="font-size: 20px;color: #808080;"><br><br><br><br><center>Welcome!<br><br>In Pathalogy Lab Reporting System</center></div>

@@ -1,0 +1,78 @@
+<?php
+
+class Users extends CI_Model {
+
+    function validate() {
+        $this->db->where('username', $this->input->post('username'));
+        $this->db->where('password', md5($this->input->post('password')));
+        $query = $this->db->get('users');
+        if ($query->num_rows()>0)
+        {
+            $res = $query->row_array();
+            $data = array(
+                'username' => $res['first_name']." ".$res['last_name'],
+                'loginname' => $res['username'],
+                'user_id' => $res['id'],
+                'age' => $res['age'],
+                'gender' => $res['gender'],
+                'mobile' => $res['mobile'],
+                'email' => $res['email'],
+                'is_logged_in' => TRUE,
+                'usertype' => $res['user_type']
+            );
+            $this->session->set_userdata($data);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function create_user() {
+        $this->db->where('mobile',$this->input->post('mobile'));
+        $result=$this->db->select('id')->get('users')->result_array();
+        $new_member_insert_data = array(
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'email' => $this->input->post('email'),
+            'gender' => $this->input->post('gender'),
+            'age' => $this->input->post('age'),
+            'user_type' => 'patient',
+            'created' => date('Y-m-d H:i:s')
+        );
+        $userid='';
+        if(count($result)>0){
+            $this->db->where('id',$result[0]["id"]);
+            $this->db->update('users', $new_member_insert_data);
+            $userid=$result[0]["id"];
+        }
+        else{
+            $new_member_insert_data['mobile'] = $this->input->post('mobile');
+            $new_member_insert_data['username'] = $this->input->post('mobile');
+            $this->db->insert('users', $new_member_insert_data);
+            $userid= $this->db->insert_id();
+        }
+        return $userid;
+       
+    }
+    
+    function getUser($word,$field='first_name'){ 
+        $sql = $this->db->query('select email,username,first_name,last_name,mobile,gender,age from users where user_type="patient" AND ' 
+                . $field.' like "'. mysql_real_escape_string($word) .'%" order by first_name asc limit 0,10');
+        return $sql->result();
+    }
+    
+    function sendPasscode($username){  
+        $this->db->where('username', $username);
+        $this->db->where('user_type', 'patient');
+        $query = $this->db->get('users');
+        $msg="";
+        if ($query->num_rows == 1) {
+            $code=  rand(111111, 999999);
+            $this->db->where('username', $username);
+            $this->db->update("users",array('password'=>md5($code)));
+            $msg="A six digit passcode is sent to your registered Mobile Number\nFor testing your pass code is ".$code;
+            // SEND SMS HERE
+        }
+        return $msg;
+    }
+}
