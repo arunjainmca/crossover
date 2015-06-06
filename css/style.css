@@ -1,50 +1,44 @@
 /* CSS Document */
-/*body{
-        background:#E5E5E5;
-        margin:0px;
-        padding:0px;
-        font-family:Verdana, Geneva, sans-serif;
-}*/
-
-
-
+body{
+    background:#E5E5E5;
+    margin:0px;
+    padding:0px;
+    font-family:Verdana, Geneva, sans-serif;
+    font-size: 12px;
+}
 .multiselect {
-        width: 200px;
-    }
-    .selectBox {
-        position: relative;
-    }
-    .selectBox select {
-        width: 100%;
-        font-weight: bold;
-    }
-    .overSelect {
-        position: absolute;
-        left: 0; right: 0; top: 0; bottom: 0;
-    }
-    #checkboxes {
-        display: none;
-        border: 1px #dadada solid;
-    }
-    #checkboxes label {
-        display: block;
-    }
-    #checkboxes label:hover {
-        background-color: #1e90ff;
-    }
-
-
-
-
-
+    width: 200px;
+}
+.selectBox {
+    position: relative;
+}
+.selectBox select {
+    width: 100%;
+    font-weight: bold;
+}
+.overSelect {
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+}
+#checkboxes {
+    display: none;
+    border: 1px #dadada solid;
+}
+#checkboxes label {
+    display: block;
+}
+#checkboxes label:hover {
+    background-color: #1e90ff;
+}
 
 #login_form{
-    width:400px;
-    height:250px;
-    padding:15px;
+    width:500px;
+    height:200px;
+    padding:10px;
     border:1px solid #000;
     margin: 100px auto;
     border-radius:5px;
+    font-size: 12px;
 }
 h1{
     font-family:Verdana, Geneva, sans-serif;
@@ -355,3 +349,8 @@ a.iconic:hover {
 .iconic.check-alt:before { content: "Y"; }
 .iconic.beaker:before { content: "z"; }
 .iconic.beaker-alt:before { content: "Z"; }
+.error{
+    font-size: 12px;
+    margin: 2px;
+    border-bottom: 1px solid #FF0000;
+}

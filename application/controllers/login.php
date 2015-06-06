@@ -5,14 +5,14 @@ class Login extends CI_Controller {
     function index() {
         $is_logged_in = $this->session->userdata('is_logged_in');
         if (isset($is_logged_in) && $is_logged_in) {
-            redirect(base_url() . 'site/homepage');
+            redirect(base_url() . 'site/home');
         }
         $this->session->sess_destroy();
         if (isset($this->data['error'])) {
             $data = $this->data;
         }
-        $data['main_content'] = 'login_form';
-        $this->load->view('includes/template', $data);
+        $data['main_content'] = 'login/login_form';
+        $this->load->view('layouts/default', $data);
     }
 
     function authenticate_user() {
@@ -20,21 +20,21 @@ class Login extends CI_Controller {
         $this->load->model('users');
         $query = $this->users->validate();
         if ($query) {
-            redirect('site/homepage');
+            redirect('site/home');
         } else {
             $this->data['error'] = "Wrong Credentials! Please Try again.";
             $this->index();
         }
     }
 
-    public function getPatients() {
+    public function getUsers() {
         if (!isset($_GET['term']) || !isset($_GET['searchBy']))
             exit;
-        $searchBy = 'name';
+        $searchBy = 'aadhar';
         if ($_GET['searchBy'] == 'mobile') {
             $searchBy = 'mobile';
-        } elseif ($_GET['searchBy'] == 'name') {
-            $searchBy = 'first_name';
+        } elseif ($_GET['searchBy'] == 'vehicle_no') {
+            $searchBy = 'vehicle_no';
         } else {
             exit;
         }
@@ -52,13 +52,13 @@ class Login extends CI_Controller {
         flush();
     }
 
-    public function getPasscode() {
-        if (!isset($_GET['username']) || !isset($_GET['usertype'])) {
+    public function get_otp() {
+        if (!isset($_GET['username']) || !isset($_GET['user_type'])) {
             echo("We have not receievd proper inputs.");
             exit();
         }
         // Check Data value with regular Expression here
-        if ($_GET['username'] == "" || $_GET['usertype'] != "PAT") {
+        if ($_GET['username'] == "" || $_GET['user_type'] != "PAT") {
             echo("We have  receievd invalid inputs.");
             exit();
         }

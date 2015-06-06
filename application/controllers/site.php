@@ -7,10 +7,10 @@ class Site extends CI_Controller {
         $this->is_logged_in();
     }
 
-    function homepage() {
+    function home() {
         $this->is_logged_in();
-        $data['main_content'] = 'members_area';
-        $this->load->view('includes/template', $data);
+        $data['main_content'] = 'site/home';
+        $this->load->view('layouts/default', $data);
     }
 
     function is_logged_in() {
@@ -26,7 +26,7 @@ class Site extends CI_Controller {
         $data['main_content'] = 'testsRequest';
         $this->load->model('tests');
         $data['testList'] = $this->tests->getTestList();
-        $this->load->view('includes/template', $data);
+        $this->load->view('layouts/default', $data);
     }
 
     function UpdateTests($order_id, $user_id) {
@@ -38,7 +38,7 @@ class Site extends CI_Controller {
         $this->session->set_userdata(array('ReportUpdate' => 1, 'order_id' => $order_id, 'user_id' => $user_id));
         $data['mode'] = 'EDIT';
         $data['main_content'] = 'testsRequest';
-        $this->load->view('includes/template', $data);
+        $this->load->view('layouts/default', $data);
     }
 
     function createTestsRequest() {
@@ -66,7 +66,7 @@ class Site extends CI_Controller {
                 $order_id = $this->tests->createTestsOrder($user_id);
                 $data['main_content'] = 'testsRequest_success';
                 $data['order_id'] = $order_id;
-                $this->load->view('includes/template', $data);
+                $this->load->view('layouts/default', $data);
             } else {
                 if ($this->session->userdata('ReportUpdate') == 1) {
                     $this->UpdateTests($this->session->set_userdata('order_id'), $this->session->set_userdata('$user_id'));
@@ -91,7 +91,7 @@ class Site extends CI_Controller {
     function testsRequestupdate() {
         $this->is_logged_in();
         $data['main_content'] = 'signup_form';
-        $this->load->view('includes/template', $data);
+        $this->load->view('layouts/default', $data);
     }
 
     function viewTestsReports() {
@@ -100,13 +100,7 @@ class Site extends CI_Controller {
         $result = $this->tests->viewTestsReports($this->session->userdata('user_id'));
         $data['result'] = $result;
         $data['main_content'] = 'customerReports';
-        $this->load->view('includes/template', $data);
-    }
-
-    function viewCustomerProfile() {
-        $this->is_logged_in();
-        $data['main_content'] = 'customerProfile';
-        $this->load->view('includes/template', $data);
+        $this->load->view('layouts/default', $data);
     }
 
     function viewReport($order_id, $user_id) {
@@ -115,7 +109,7 @@ class Site extends CI_Controller {
         $result = $this->tests->getcompleteReport($order_id, $user_id);
         $data['result'] = $result;
         $data['main_content'] = 'detailedReport';
-        $this->load->view('includes/template', $data);
+        $this->load->view('layouts/default', $data);
     }
 
     function getOrders() {
@@ -124,7 +118,7 @@ class Site extends CI_Controller {
         $result = $this->tests->getAllOrders();
         $data['result'] = $result;
         $data['main_content'] = 'updateOrders';
-        $this->load->view('includes/template', $data);
+        $this->load->view('layouts/default', $data);
     }
 
     function deleteOrder($order_id) {
@@ -134,7 +128,7 @@ class Site extends CI_Controller {
         $result = $this->tests->getAllOrders();
         $data['result'] = $result;
         $data['main_content'] = 'updateOrders';
-        $this->load->view('includes/template', $data);
+        $this->load->view('layouts/default', $data);
     }
 
 }
