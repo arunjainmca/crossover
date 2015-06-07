@@ -98,15 +98,16 @@ class UserModel extends CI_Model {
         }
         return $flag;
     }
+
     function edit_dl() {
         $flag = true;
         $form_fields = $this->input->post('form_field');
-		//print_r($form_fields); exit;
+        //print_r($form_fields); exit;
         foreach ($form_fields as $field_id => $value) {
             $dl_data = array('value' => $value,
                 'updated' => date('Y-m-d H:i:s'),
                 'updated_by' => $this->session->userdata('user_id'));
-			$this->db->where(array('user_id'=>$this->session->userdata('user_id'),'doc_type_field_id'=>$field_id));
+            $this->db->where(array('user_id' => $this->session->userdata('user_id'), 'doc_type_field_id' => $field_id));
             if (!$this->db->update("user_dl_details", $dl_data)) {
                 $flag = false;
             }
