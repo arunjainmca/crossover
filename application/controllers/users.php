@@ -3,7 +3,7 @@
 class Users extends CI_Controller {
 
     function __construct() {
-        parent::CI_Controller();
+        parent::__construct();
         $this->is_logged_in();
     }
 
@@ -31,6 +31,11 @@ class Users extends CI_Controller {
     function profile() {
         $this->is_logged_in();
         $data['main_content'] = 'users/profile';
+        $this->load->view('layouts/default', $data);
+    }
+    
+    public function createuser(){
+        $data['main_content'] = 'users/createuser';
         $this->load->view('layouts/default', $data);
     }
 
