@@ -16,7 +16,8 @@ class Login extends CI_Controller {
     }
 
     function authenticate_user() {
-        //print_r($_POST);exit;
+        $this->load->model('UserModel');
+        $query = $this->UserModel->validate();
         if ($query) {
             redirect('site/home');
         } else {
@@ -49,21 +50,20 @@ class Login extends CI_Controller {
     }
 
     public function get_otp() {
-        if (!isset($_GET['aadharno']) || !isset($_GET['aadharno']) || !($_GET['aadharno']>0)) {
+        if (!isset($_GET['aadharno']) || !isset($_GET['aadharno']) || !($_GET['aadharno'] > 0)) {
             echo("We have not receievd proper inputs.");
             exit();
         }
-        $res=$this->db->query('select * from users where aadhar_id='.$_GET['aadharno'])->result_array();
-        if(count($res)>0){
+        $res = $this->db->query('select * from users where aadhar_id=' . $_GET['aadharno'])->result_array();
+        if (count($res) > 0) {
             echo("This Aadhar No. is already registered");
             return;
         }
         $this->load->library('aadharapi');
-        $resp=$this->aadharapi->GenerateAadharOtp($_GET['aadharno'], "121003");
-        if($resp==1){
+        $resp = $this->aadharapi->GenerateAadharOtp($_GET['aadharno'], "121003");
+        if ($resp == 1) {
             echo("Otp is send to your registered mobile no.");
-        }
-        else{
+        } else {
             echo("Mobile No. not registered / Invalid Aadhar no.");
         }
     }
@@ -72,7 +72,7 @@ class Login extends CI_Controller {
         $this->session->sess_destroy();
         redirect(base_url() . 'login/index/');
     }
-    
+
     function signup() {
         $is_logged_in = $this->session->userdata('is_logged_in');
         if (isset($is_logged_in) && $is_logged_in) {
@@ -82,38 +82,37 @@ class Login extends CI_Controller {
         if (isset($this->data['error'])) {
             $data = $this->data;
         }
-        $data['signuperror']="";
-        if($this->input->post('aadharno')){
-            if(!($this->input->post('aadharno')>0)){
-                $data['signuperror']="invalid Aadhar Number. Please try again";
+        $data['signuperror'] = "";
+        if ($this->input->post('aadharno')) {
+            if (!($this->input->post('aadharno') > 0)) {
+                $data['signuperror'] = "invalid Aadhar Number. Please try again";
+            } elseif (!($this->input->post('otp') > 0)) {
+                $data['signuperror'] = "invalid Otp. Please try again";
+            } elseif (($this->input->post('password') == "")) {
+                $data['signuperror'] = "Please enter password.";
             }
-            elseif(!($this->input->post('otp')>0)){
-                $data['signuperror']="invalid Otp. Please try again";
-            }
-            elseif(($this->input->post('password')=="")){
-                $data['signuperror']="Please enter password.";
-            }    
-            if($data['signuperror']==""){
+            if ($data['signuperror'] == "") {
                 $this->load->library('aadharapi');
-                $resp=$this->aadharapi->AuthUidWithOtp($this->input->post('aadharno'), "121003",$this->input->post('otp'));
-                if($resp['success']){
-                   $data = array(
-                    'aadhar_id' => $this->input->post('aadharno') ,
-                    'password' => md5($this->input->post('password')),
-                    'first_name' => $resp['kyc']['poi']['name'],
-                    'gender' => $resp['kyc']['poi']['gender'],
-                    'address' => $resp['kyc']['poa']['co']." ".$resp['kyc']['poa']['street']." ".$resp['kyc']['poa']['dist'],
-                    'dob' => date('Y-m-d', strtotime($resp['kyc']['poi']['dob'])),
-                    'city' => $resp['kyc']['poa']['po'],
-                    'state' => $resp['kyc']['poa']['state'] ,
-                    'pincode' => $resp['kyc']['poa']['pc'],
-                    'user_type' => "user");
-                    $this->db->insert('users', $data); 
-                    $data['signupsuccess']="You are signup successfully with Uid ". $this->input->post('aadharno');
+                $resp = $this->aadharapi->AuthUidWithOtp($this->input->post('aadharno'), "121003", $this->input->post('otp'));
+                if ($resp['success']) {
+                    $data = array(
+                        'aadhar_id' => $this->input->post('aadharno'),
+                        'password' => md5($this->input->post('password')),
+                        'first_name' => $resp['kyc']['poi']['name'],
+                        'gender' => $resp['kyc']['poi']['gender'],
+                        'address' => $resp['kyc']['poa']['co'] . " " . $resp['kyc']['poa']['street'] . " " . $resp['kyc']['poa']['dist'],
+                        'dob' => date('Y-m-d', strtotime($resp['kyc']['poi']['dob'])),
+                        'city' => $resp['kyc']['poa']['po'],
+                        'state' => $resp['kyc']['poa']['state'],
+                        'pincode' => $resp['kyc']['poa']['pc'],
+                        'user_type' => "user");
+                    $this->db->insert('users', $data);
+                    $data['signupsuccess'] = "You are signup successfully with Uid " . $this->input->post('aadharno');
                 }
             }
         }
         $data['main_content'] = 'login/signup_form';
         $this->load->view('layouts/default', $data);
     }
+
 }
