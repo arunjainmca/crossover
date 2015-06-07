@@ -40,6 +40,16 @@ body{
     border-radius:5px;
     font-size: 12px;
 }
+#signup_form{
+    width:500px;
+    height:200px;
+    padding:10px;
+    border:1px solid #000;
+    margin: 100px auto;
+    border-radius:5px;
+    font-size: 12px;
+}
+
 h1{
     font-family:Verdana, Geneva, sans-serif;
     margin-top:0px;
@@ -137,7 +147,7 @@ body{
     font-size   : 12px;
     font-weight : lighter;
     text-align  : center;
-    position    : fixed;
+    //position    : fixed;
     bottom      : 0px;
     margin-top: 50px;
 }

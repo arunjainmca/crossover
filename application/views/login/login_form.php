@@ -117,6 +117,7 @@
 
 <div id="login_form">
     <h1>Login</h1>
+                
     <?php
     $username = 'placeholder="Enter Username or Aadhar Number" id="username" autocomplete=off';
     $password = 'placeholder="Enter Password" id="password"';
@@ -126,7 +127,7 @@
     <table>
         <tr>
             <td>
-                Login Type
+                Login Type    
             </td>
             <td>
                 <?php echo form_dropdown("user_type", array('' => '-- Select Login Type --', 'admin' => 'Admin', 'rto_staff' => 'RTO Authority', 'ins_staff' => 'Insurance Authority', 'pol_staff' => 'Pollution Control Authority', 'user' => 'User'), 'user', 'id="user_type"'); ?>
@@ -151,6 +152,7 @@
     </table>
     <?php
     echo form_submit("submit", "Login");
+    echo anchor("login/signup", "Signup", 'id="signup"');
     echo anchor("login/get_otp", "Generate Passcode", 'id="passcode"');
     echo('<br/><br/s>');
     if (isset($error) && !empty($error)) {

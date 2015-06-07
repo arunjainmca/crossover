@@ -82,10 +82,21 @@ class Vehicles extends CI_Controller {
         if (!empty($vehicle_id)) {
             $vehicle_details = $this->db->get_where('vehicles', array('id' => $vehicle_id, 'user_id' => $this->session->userdata('user_id')))->row_array();
             if (!empty($vehicle_details)) {
-                //echo '<pre>';
-                //print_r($vehicle_details);
-                //die;
+                $doc_details = array();
+
                 $data['vehicle_details'] = $vehicle_details;
+                $doc_types = $this->db->get_where('doc_types', array('doc_status' => 1, 'id <> ' => 4))->result_array();
+                foreach ($doc_types as $doc_type) {
+                    $f_details = $this->db->query('SELECT vd.*, dtf.field_name FROM vehicle_details vd 
+            LEFT JOIN doc_type_fields dtf ON dtf.id = vd.doc_type_field_id
+            WHERE user_id = ' . $this->session->userdata('user_id') . ' AND vd.doc_type_id = ' . $doc_type['id'])->result_array();
+                    $doc_details[$doc_type['id']] = $f_details;
+                }
+                $data['doc_types'] = $doc_types;
+                $data['doc_details'] = $doc_details;
+//                echo '<pre>';
+//                print_r($data);
+//                die;
                 $data['main_content'] = 'vehicles/view';
                 $this->load->view('layouts/default', $data);
             } else {
@@ -95,6 +106,24 @@ class Vehicles extends CI_Controller {
         } else {
             echo 'Invalid Request. Please Try Again.';
             exit;
+        }
+    }
+
+    function add_policy($vehicle_id, $doc_type_id) {
+        if ($this->input->post('submit')) {
+            $this->load->model('VehicleModel');
+            if ($this->VehicleModel->add_policy()) {
+                redirect(base_url() . 'vehicles/view/' . $vehicle_id);
+            } else {
+                redirect(base_url() . 'vehicles/add_policy/' . $vehicle_id . '/' . $doc_type_id);
+            }
+        } else {
+            $data['vehicle_id'] = $vehicle_id;
+            $data['doc_type'] = $this->db->get_where('doc_types', array('id' => $doc_type_id))->row_array();
+            $form_fields = $this->db->order_by('sort_order', 'ASC')->get_where('doc_type_fields', array('doc_type_id' => $doc_type_id, 'status' => 1))->result_array();
+            $data['form_fields'] = $form_fields;
+            $data['main_content'] = 'vehicles/add_policy';
+            $this->load->view('layouts/default', $data);
         }
     }
 

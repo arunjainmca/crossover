@@ -59,8 +59,6 @@ class Site extends CI_Controller {
                 $this->testsRequest();
         } else {
 
-            $this->load->model('UserModel');
-            $user_id = $this->UserModel->create_user();
             if ($user_id) {
                 $this->load->model('tests');
                 $order_id = $this->tests->createTestsOrder($user_id);

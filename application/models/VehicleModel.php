@@ -59,4 +59,25 @@ class VehicleModel extends CI_Model {
         return $msg;
     }
 
+    function add_policy() {
+        $flag = true;
+        $vehicle_id = $this->input->post('vehicle_id');
+        $doc_type_id = $this->input->post('doc_type_id');
+        $form_fields = $this->input->post('form_field');
+        foreach ($form_fields as $field_id => $value) {
+            $data = array();
+            $data = array('user_id' => $this->session->userdata('user_id'),
+                'vehicle_id' => $vehicle_id,
+                'doc_type_id' => $doc_type_id,
+                'doc_type_field_id' => $field_id,
+                'value' => $value,
+                'created' => date('Y-m-d H:i:s'),
+                'created_by' => $this->session->userdata('user_id'));
+            if (!$this->db->insert('vehicle_details', $data)) {
+                $flag = false;
+            }
+        }
+        return $flag;
+    }
+
 }

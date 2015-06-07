@@ -8,7 +8,6 @@ class Users extends CI_Controller {
     }
 
     function home() {
-        $this->is_logged_in();
         $data['main_content'] = 'site/home';
         $this->load->view('layouts/default', $data);
     }
@@ -32,7 +31,6 @@ class Users extends CI_Controller {
     }
 
     function profile() {
-        $this->is_logged_in();
         //Driving License Details
         //doc_type_id = 4 for Driving License
         $dl_details = $this->db->query('SELECT udl.*, dtf.field_name FROM user_dl_details udl 
@@ -42,9 +40,13 @@ class Users extends CI_Controller {
         $data['main_content'] = 'users/profile';
         $this->load->view('layouts/default', $data);
     }
+    
+    public function createuser(){
+        $data['main_content'] = 'users/createuser';
+        $this->load->view('layouts/default', $data);
+    }
 
     function add_dl() {
-        $this->is_logged_in();
         $dl_details = $this->db->query('SELECT udl.*, dtf.field_name FROM user_dl_details udl 
             LEFT JOIN doc_type_fields dtf ON dtf.id = udl.doc_type_field_id AND dtf.doc_type_id=4
             WHERE user_id = '.$this->session->userdata('user_id').' AND udl.doc_type_id = 4')->result_array();
