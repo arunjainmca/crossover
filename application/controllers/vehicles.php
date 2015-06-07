@@ -22,7 +22,32 @@ class Vehicles extends CI_Controller {
         $data['vehicles'] = $vehicles;
         $this->load->view('layouts/default', $data);
     }
+	
+    function search() {
+        $data['main_content'] = 'vehicles/search';
+		if($this->session->userdata('user_type') == 'user'){
+		redirect(base_url() . 'users/profile');
+		}
+		 $vehicles = array();
+		if ($this->input->post('search')) {
+        $vehicles = $this->VehicleModel->get_vehicles_aadhar($this->input->post('aadharSearch'));
+		} 
+        $data['vehicles'] = $vehicles;
+        $this->load->view('layouts/default', $data);
+    }
+	
+	function updateStatus(){
+	
 
+	$this->db->where('vehicle_number',$_POST['vnum']);
+	if(!$this->db->update("vehicles", array('status' => $_POST['status']))){
+	echo "not done";
+	
+	}else{
+	echo 'done';
+	}
+	}
+	
     function add() {
         $this->is_logged_in();
         if ($this->input->post('submit')) {
