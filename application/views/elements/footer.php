@@ -1,5 +1,5 @@
 </div>
-<div class="footer">Copyright &copy; 2015 Aadhar Traffic Crossover. All rights reserved.</div>
+<div class="footer">Copyright &copy; 2015 Aadhar Traffic Crossover System. All Rights Reserved.</div>
 </div>
 </body>
 </html>
