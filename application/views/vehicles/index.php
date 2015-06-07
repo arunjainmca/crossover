@@ -80,9 +80,10 @@
                         ?>
                     </td>
                     <td>
-                        <a href="<?php echo base_url(); ?>/vehicles/add">Edit</a>
+                        <a href="javascript:void(0);">Edit</a>
+                        <!--<a href="<?php echo base_url(); ?>vehicles/add">Edit</a>-->
                         &nbsp;&nbsp;
-                        <a href="<?php echo base_url(); ?>/vehicles/view">View Details</a>
+                        <a href="<?php echo base_url(); ?>vehicles/view/<?php echo $vehicle['id']; ?>">View Details</a>
                     </td>
                 </tr>
             <?php }

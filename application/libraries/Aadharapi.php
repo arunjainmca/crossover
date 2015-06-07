@@ -1,18 +1,17 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Aadharapi {
+<?php
 
-    public $url;
+class AadharApi{
+
+    public $url = 'https://ac.khoslalabs.com/hackgate/hackathon/';
 
     function __construct() {
-        $this->url='https://ac.khoslalabs.com/hackgate/hackathon/';
+        parent::__construct();
     }
-   
-    
-    
+
     public function TestAadhar() {
         $this->AuthOnlyUidWithDemo("", "121003", "Amit Kumar Gupta");
         // $this->GenerateAadharOtp("","121003");
-        $resp = $this->AuthUidWithOtp("99999999999", "121003", "819098");
+        $resp = $this->AuthUidWithOtp("", "121003", "819098");
         $table = "<table>
                 <tr><td colspan=2><img alt='Embedded Image' src='data:image/png;base64," . $resp['kyc']['photo'] . " ' /></td></tr>
                 <tr><td>UID</td><td>" . $resp['aadhaar-id'] . "</td></tr>
@@ -95,7 +94,8 @@ class Aadharapi {
         $commInfo = @curl_getinfo($ch);
         $user1 = curl_close($ch);
         $response = json_decode($response, true);
-       // print_r($response);
+        print_r($response);
         return $response;
     }
+
 }

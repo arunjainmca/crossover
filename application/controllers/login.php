@@ -17,8 +17,6 @@ class Login extends CI_Controller {
 
     function authenticate_user() {
         //print_r($_POST);exit;
-        $this->load->model('users');
-        $query = $this->users->validate();
         if ($query) {
             redirect('site/home');
         } else {
@@ -40,8 +38,6 @@ class Login extends CI_Controller {
         }
         $keyword = $_REQUEST['term'];
         $data = array();
-        $this->load->model('users');
-        $rows = $this->users->getUser($keyword, $searchBy);
         foreach ($rows as $row) {
             $data[] = array(
                 'label' => $row->first_name . ' ' . $row->last_name . "[ " . $row->mobile . "]",
