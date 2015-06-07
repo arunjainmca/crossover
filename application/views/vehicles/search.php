@@ -79,7 +79,7 @@ $aadhar_number = isset($_POST['aadharSearch']) ? $_POST['aadharSearch'] : '';
 			
         </tr>
     </tfoot>
-    <?php if (!empty($vehicles)) {
+    <?php if (!empty($vehicles)) { 
         ?>
         <tbody>
             <?php foreach ($vehicles as $k => $vehicle) { ?>
