@@ -49,7 +49,10 @@
     <tr>
         <th colspan="2">
             Driving License Details
-            <span style="float:right"><a href="javascript:void(0);">Edit</a></span>
+			<?php 
+			if (!empty($dl_details)) {?>
+            <span style="float:right"><a href="<?php echo base_url().'users/edit_dl';?>">Edit</a></span>    
+			<?php }?>
         </th>
     </tr>
     <?php
