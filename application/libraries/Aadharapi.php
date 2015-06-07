@@ -6,7 +6,9 @@ class Aadharapi {
     function __construct() {
         $this->url='https://ac.khoslalabs.com/hackgate/hackathon/';
     }
-
+   
+    
+    
     public function TestAadhar() {
         $this->AuthOnlyUidWithDemo("", "121003", "Amit Kumar Gupta");
         // $this->GenerateAadharOtp("","121003");
