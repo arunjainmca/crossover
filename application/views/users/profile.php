@@ -51,7 +51,7 @@
             Driving License Details
 			<?php 
 			if (!empty($dl_details)) {?>
-            <span style="float:right"><a href="<?php echo base_url().'users/edit_dl';?>">Edit</a></span> 
+            <span style="float:right"><a href="<?php echo base_url().'users/edit_dl';?>">Edit</a></span>  
 			<?php }?>
         </th>
     </tr>
