@@ -4,7 +4,7 @@
     });
 
 </script>
-<h2>My Vehicles List</h2>
+<h2>Vehicle Details</h2>
 <div class="divider"></div>
 <br/>
 <table>
@@ -83,7 +83,7 @@
                         <a href="javascript:void(0);">Edit</a>
                         <!--<a href="<?php echo base_url(); ?>vehicles/add">Edit</a>-->
                         &nbsp;&nbsp;
-                        <a href="<?php echo base_url(); ?>vehicles/view/<?php echo $vehicle['id']; ?>">View Details</a>
+                        <a href="<?php echo base_url(); ?>vehicles/view">View Details</a>
                     </td>
                 </tr>
             <?php }

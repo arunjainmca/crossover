@@ -17,8 +17,8 @@ class Login extends CI_Controller {
 
     function authenticate_user() {
         //print_r($_POST);exit;
-        $this->load->model('users');
-        $query = $this->users->validate();
+        $this->load->model('UserModel');
+        $query = $this->UserModel->validate();
         if ($query) {
             redirect('site/home');
         } else {
@@ -40,8 +40,8 @@ class Login extends CI_Controller {
         }
         $keyword = $_REQUEST['term'];
         $data = array();
-        $this->load->model('users');
-        $rows = $this->users->getUser($keyword, $searchBy);
+        $this->load->model('UserModel');
+        $rows = $this->UserModel->getUser($keyword, $searchBy);
         foreach ($rows as $row) {
             $data[] = array(
                 'label' => $row->first_name . ' ' . $row->last_name . "[ " . $row->mobile . "]",
@@ -62,8 +62,8 @@ class Login extends CI_Controller {
             echo("We have  receievd invalid inputs.");
             exit();
         }
-        $this->load->model('users');
-        $data = $this->users->sendPasscode($_GET['username']);
+        $this->load->model('UserModel');
+        $data = $this->UserModel->sendPasscode($_GET['username']);
         echo($data);
         flush();
     }

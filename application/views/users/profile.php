@@ -4,12 +4,17 @@
     });
 
 </script>
-<h2>User's Details</h2>
-<div class="divider"></div>
 <br/>
-<table align="center" border='1' cellspacing='0' cellpadding='10'>
+<div class="divider"></div>
+<table align="center" border="1" cellspacing="0" cellpadding="10" width="540">
     <tr>
-        <td>User Name</td><td><?php echo $this->session->userdata('username'); ?></td>
+        <th colspan="2">
+            Profile Details
+            <span style="float:right"><a href="javascript:void(0);">Edit</a></span>
+        </th>
+    </tr>
+    <tr>
+        <td width="120">User Name</td><td><?php echo $this->session->userdata('username'); ?></td>
     </tr>
     <tr>
         <td>Aadhar Number</td><td><?php echo $this->session->userdata('aadhar_id'); ?></td>
@@ -19,7 +24,7 @@
     </tr>
     <tr>
         <td>Gender</td><td><?php echo ucfirst($this->session->userdata('gender')); ?></td>
-    </tr
+    </tr>
     <tr>
         <td>Registered Mobile</td><td><?php echo $this->session->userdata('mobile'); ?></td>
     </tr>
@@ -39,3 +44,28 @@
         <td>Pin code </td><td><?php echo $this->session->userdata('pincode'); ?></td>
     </tr>
 </table>
+<br/>
+<table align="center" border="1" cellspacing="0" cellpadding="10" width="540">
+    <tr>
+        <th colspan="2">
+            Driving License Details
+            <span style="float:right"><a href="javascript:void(0);">Edit</a></span>
+        </th>
+    </tr>
+    <?php
+    if (!empty($dl_details)) {
+        foreach ($dl_details as $dl_field) {
+            ?>
+            <tr>
+                <td width="120"><?php echo $dl_field['field_name']; ?></td><td><?php echo $dl_field['value']; ?></td>
+            </tr>
+            <?php
+        }
+    } else {
+        ?>
+        <tr>
+            <td colspan="2">You have not saved your Driving License Details yet. Please <a href="<?php echo base_url(); ?>users/add_dl">click here</a> to Add.</td>
+        </tr>
+    <?php } ?>
+</table>
+<br/><br/><br/>

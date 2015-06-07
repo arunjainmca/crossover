@@ -53,9 +53,24 @@ class Vehicles extends CI_Controller {
         }
     }
 
-    function view() {
-        $data['main_content'] = 'vehicles/view';
-        $this->load->view('layouts/default', $data);
+    function view($vehicle_id) {
+        if (!empty($vehicle_id)) {
+            $vehicle_details = $this->db->get_where('vehicles', array('id' => $vehicle_id, 'user_id' => $this->session->userdata('user_id')))->row_array();
+            if (!empty($vehicle_details)) {
+                //echo '<pre>';
+                //print_r($vehicle_details);
+                //die;
+                $data['vehicle_details'] = $vehicle_details;
+                $data['main_content'] = 'vehicles/view';
+                $this->load->view('layouts/default', $data);
+            } else {
+                echo 'Vehicle Details not found.';
+                exit;
+            }
+        } else {
+            echo 'Invalid Request. Please Try Again.';
+            exit;
+        }
     }
 
 }
