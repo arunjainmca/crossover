@@ -40,6 +40,11 @@ class Users extends CI_Controller {
         $data['main_content'] = 'users/profile';
         $this->load->view('layouts/default', $data);
     }
+    
+    public function createuser(){
+        $data['main_content'] = 'users/createuser';
+        $this->load->view('layouts/default', $data);
+    }
 
     function add_dl() {
         $dl_details = $this->db->query('SELECT udl.*, dtf.field_name FROM user_dl_details udl 
@@ -67,7 +72,6 @@ class Users extends CI_Controller {
         $dl_details = $this->db->query('SELECT udl.*, dtf.field_name FROM user_dl_details udl 
             LEFT JOIN doc_type_fields dtf ON dtf.id = udl.doc_type_field_id AND dtf.doc_type_id=4
             WHERE user_id = '.$this->session->userdata('user_id').' AND udl.doc_type_id = 4')->result_array();
-			//echo "<pre>"; print_r($dl_details); exit;
 		    if (empty($dl_details)) {
             redirect(base_url() . 'users/add_dl');
 			}
@@ -86,19 +90,5 @@ class Users extends CI_Controller {
 			$data['main_content'] = 'users/edit_dl';
 			$this->load->view('layouts/default', $data);
 
-/* 		echo "<pre>"; print_r($data);		exit;
-        if ($this->input->post('submit')) {
-            $this->load->model('UserModel');
-            if ($this->UserModel->add_dl()) {
-                redirect(base_url() . 'users/profile');
-            } else {
-                redirect(base_url() . 'users/add_dl');
-            }
-        } else {
-            $form_fields = $this->db->order_by('sort_order', 'ASC')->get_where('doc_type_fields', array('doc_type_id' => 4, 'status' => 1))->result_array();
-            $data['form_fields'] = $form_fields;
-            $data['main_content'] = 'users/add_dl';
-            $this->load->view('layouts/default', $data);
-        } */
     }
 }

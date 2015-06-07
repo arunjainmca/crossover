@@ -1,6 +1,6 @@
 <?php
 
-class AadharApi extends CI_Controller {
+class AadharApi{
 
     public $url = 'https://ac.khoslalabs.com/hackgate/hackathon/';
 
@@ -9,9 +9,9 @@ class AadharApi extends CI_Controller {
     }
 
     public function TestAadhar() {
-        $this->AuthOnlyUidWithDemo("357515288428", "121003", "Amit Kumar Gupta");
-        // $this->GenerateAadharOtp("357515288428","121003");
-        $resp = $this->AuthUidWithOtp("357515288428", "121003", "819098");
+        $this->AuthOnlyUidWithDemo("", "121003", "Amit Kumar Gupta");
+        // $this->GenerateAadharOtp("","121003");
+        $resp = $this->AuthUidWithOtp("", "121003", "819098");
         $table = "<table>
                 <tr><td colspan=2><img alt='Embedded Image' src='data:image/png;base64," . $resp['kyc']['photo'] . " ' /></td></tr>
                 <tr><td>UID</td><td>" . $resp['aadhaar-id'] . "</td></tr>
@@ -98,4 +98,4 @@ class AadharApi extends CI_Controller {
         return $response;
     }
 
-?>
+}
