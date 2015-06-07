@@ -16,8 +16,8 @@ class Login extends CI_Controller {
     }
 
     function authenticate_user() {
-        $this->load->model('UserModel');
-        $query = $this->UserModel->validate();
+        $this->load->model('user_model');
+        $query = $this->user_model->validate();
         if ($query) {
             redirect('site/home');
         } else {

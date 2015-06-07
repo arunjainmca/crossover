@@ -1,6 +1,6 @@
 <?php
 
-class UserModel extends CI_Model {
+class User_model extends CI_Model {
 
     function validate() {
         $this->db->where('username', $this->input->post('username'));

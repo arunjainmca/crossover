@@ -5,7 +5,7 @@ class Vehicles extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->is_logged_in();
-        $this->load->model('VehicleModel');
+        $this->load->model('vehicle_model');
     }
 
     function is_logged_in() {
@@ -18,36 +18,35 @@ class Vehicles extends CI_Controller {
 
     function index() {
         $data['main_content'] = 'vehicles/index';
-        $vehicles = $this->VehicleModel->get_vehicles($this->session->userdata('user_id'));
+        $vehicles = $this->vehicle_model->get_vehicles($this->session->userdata('user_id'));
         $data['vehicles'] = $vehicles;
         $this->load->view('layouts/default', $data);
     }
-	
+
     function search() {
         $data['main_content'] = 'vehicles/search';
-		if($this->session->userdata('user_type') == 'user'){
-		redirect(base_url() . 'users/profile');
-		}
-		 $vehicles = array();
-		if ($this->input->post('search')) {
-        $vehicles = $this->VehicleModel->get_vehicles_aadhar($this->input->post('aadharSearch'));
-		} 
+        if ($this->session->userdata('user_type') == 'user') {
+            redirect(base_url() . 'users/profile');
+        }
+        $vehicles = array();
+        if ($this->input->post('search')) {
+            $vehicles = $this->vehicle_model->get_vehicles_aadhar($this->input->post('aadharSearch'));
+        }
         $data['vehicles'] = $vehicles;
         $this->load->view('layouts/default', $data);
     }
-	
-	function updateStatus(){
-	
 
-	$this->db->where('vehicle_number',$_POST['vnum']);
-	if(!$this->db->update("vehicles", array('status' => $_POST['status']))){
-	echo "not done";
-	
-	}else{
-	echo 'done';
-	}
-	}
-	
+    function updateStatus() {
+
+
+        $this->db->where('vehicle_number', $_POST['vnum']);
+        if (!$this->db->update("vehicles", array('status' => $_POST['status']))) {
+            echo "not done";
+        } else {
+            echo 'done';
+        }
+    }
+
     function add() {
         $this->is_logged_in();
         if ($this->input->post('submit')) {
@@ -64,8 +63,8 @@ class Vehicles extends CI_Controller {
                 $this->load->view('layouts/default', $data);
             } else {
 
-                $this->load->model('VehicleModel');
-                $vehicle_id = $this->VehicleModel->add_vehicle();
+                $this->load->model('vehicle_model');
+                $vehicle_id = $this->vehicle_model->add_vehicle();
                 if ($vehicle_id) {
                     redirect(base_url() . 'vehicles/index');
                 } else {
@@ -111,8 +110,8 @@ class Vehicles extends CI_Controller {
 
     function add_policy($vehicle_id, $doc_type_id) {
         if ($this->input->post('submit')) {
-            $this->load->model('VehicleModel');
-            if ($this->VehicleModel->add_policy()) {
+            $this->load->model('vehicle_model');
+            if ($this->vehicle_model->add_policy()) {
                 redirect(base_url() . 'vehicles/view/' . $vehicle_id);
             } else {
                 redirect(base_url() . 'vehicles/add_policy/' . $vehicle_id . '/' . $doc_type_id);

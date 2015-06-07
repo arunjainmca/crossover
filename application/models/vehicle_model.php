@@ -1,9 +1,9 @@
 <?php
 
-class VehicleModel extends CI_Model {
+class Vehicle_model extends CI_Model {
 
     function __construct() {
-        parent::__construct();
+        //parent::__construct();
     }
 
     function add_vehicle() {
@@ -30,11 +30,11 @@ class VehicleModel extends CI_Model {
         $this->db->where('user_id', $user_id);
         $user_vehicles = $this->db->get()->result_array();
         return $user_vehicles;
-    } 
+    }
 
-	function get_vehicles_aadhar($aadhar_id) {
-		$user_vehicles = $this->db->query('select v.* from vehicles as v inner join users as u on v.user_id=u.id where u.aadhar_id="'.$aadhar_id.'"');
-       $user_vehicles = $user_vehicles->result_array();
+    function get_vehicles_aadhar($aadhar_id) {
+        $user_vehicles = $this->db->query('select v.* from vehicles as v inner join users as u on v.user_id=u.id where u.aadhar_id="' . $aadhar_id . '"');
+        $user_vehicles = $user_vehicles->result_array();
         return $user_vehicles;
     }
 
