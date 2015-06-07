@@ -18,6 +18,11 @@ if (trim($data['user_type']) == 'admin'):
             </ul>
         </li>
         <li>
+            <a href="<?php echo base_url() ?>vehicles/search">
+                Search
+            </a>
+        </li>
+        <li>
             <a href="<?php echo base_url() ?>login/logout">
                 Logout
             </a>
@@ -34,6 +39,12 @@ if (trim($data['user_type']) == 'admin'):
         </li>
         <li>
             <a href="<?php echo base_url() ?>users/profile">My Profile</a>
+        </li>
+        <li>
+            <a href="<?php echo base_url() ?>vehicles/search">
+                Search
+            </a>
+        </li>
         <li>
             <a href="<?php echo base_url() ?>login/logout">
                 Logout
@@ -51,6 +62,12 @@ if (trim($data['user_type']) == 'admin'):
         </li>
         <li>
             <a href="<?php echo base_url() ?>users/profile">My Profile</a>
+        </li>
+        <li>
+            <a href="<?php echo base_url() ?>vehicles/search">
+                Search
+            </a>
+        </li>
         <li>
             <a href="<?php echo base_url() ?>login/logout">
                 Logout
@@ -68,6 +85,7 @@ if (trim($data['user_type']) == 'admin'):
         </li>
         <li>
             <a href="<?php echo base_url() ?>users/profile">My Profile</a>
+        </li>
         <li>
             <a href="<?php echo base_url() ?>login/logout">
                 Logout
