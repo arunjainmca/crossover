@@ -2,7 +2,7 @@
 
 class Site extends CI_Controller {
 
-    function _construct() {
+    function __construct() {
         parent::CI_Controller();
         $this->is_logged_in();
     }

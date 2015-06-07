@@ -2,7 +2,7 @@
 
 class VehicleModel extends CI_Model {
 
-    function _construct() {
+    function __construct() {
         parent::CI_Controller();
     }
 

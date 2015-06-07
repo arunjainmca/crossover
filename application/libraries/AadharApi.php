@@ -1,4 +1,4 @@
-<?
+<?php
 
 class AadharApi extends CI_Controller {
 
