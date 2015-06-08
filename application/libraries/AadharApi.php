@@ -5,7 +5,7 @@ class AadharApi{
     public $url = 'https://ac.khoslalabs.com/hackgate/hackathon/';
 
     function __construct() {
-        parent::__construct();
+       
     }
 
     public function TestAadhar() {
@@ -94,7 +94,7 @@ class AadharApi{
         $commInfo = @curl_getinfo($ch);
         $user1 = curl_close($ch);
         $response = json_decode($response, true);
-        print_r($response);
+        //print_r($response);
         return $response;
     }
 
